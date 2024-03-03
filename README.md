@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+NextJS UI Dashboard Outline
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Chapter 0 - ให้ดูตัวอย่าง Project Demo UI
+Chapter 1 - เริ่มต้นโปรเจค
+            - สร้าง Folder Components และสร้าง Navbar Component ใน Folder Components
+            - สร้าง Footer Component 
+            - สร้าง Container Component
+            - นำ Component มาเรียกใช้งานที่ page.jsx ใน Folder app
+Chapter 2 - สร้างหน้า Login & Register
+            - ให้เราสร้าง Folder Login และไฟล์ page.jsx จากนั้นเขียนโค้ด
+            - ให้เราสร้าง Folder Register และไฟล์ page.jsx จากนั้นเขียนโค้ด
+Chater 3 - สร้างหน้า User Home Page
+            - ให้เราสร้าง Folder Welcome และไฟล์ page.jsx
+            - สร้างหน้า Create Post 
+            - สร้างหน้า Edit Post
+Chapter 4 - สร้างหน้า Admin Dashboard
+            - ให้เราสร้างโฟลเดอร์ admin และ page.jsx
+            - สร้างหน้า Manage Users (สร้าง 📂users และ page.jsx)
+                - สร้างหน้า Edit User (สร้าง 📂edit ข้างใน 📂users)
+            - สร้างหน้า Manage User Posts (สร้าง 📂posts และ page.jsx)
+                - สร้างหน้า Edit User Posts (สร้าง 📂edit ข้างใน 📂posts)
