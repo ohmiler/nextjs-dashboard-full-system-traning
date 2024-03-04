@@ -28,7 +28,7 @@ function AdminEditPage({ params }) {
     const getUserById = async (id) => {
         try {
 
-            const res = await fetch(`http://localhost:3000/api/totalusers/${id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/totalusers/${id}`, {
                 method: "GET",
                 cache: "no-store"
             })

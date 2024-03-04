@@ -48,6 +48,13 @@ function LoginPage() {
                 <div className='w-[400px] shadow-xl p-10 mt-5 rounded-xl'>
                     <h3 className='text-3xl'>Login</h3>
                     <hr className='my-3' />
+
+                    {error && (
+                        <div className='bg-red-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2'>
+                            {error}
+                        </div>
+                    )}
+
                     <form onSubmit={handleSubmit}>
                         <input type="text" onChange={(e) => setEmail(e.target.value)} className='w-full bg-gray-200 border py-2 px-3 rounded text-lg my-2' placeholder='Username' />
                         <input type="password" onChange={(e) => setPassword(e.target.value)} className='w-full bg-gray-200 border py-2 px-3 rounded text-lg my-2' placeholder='Password' />

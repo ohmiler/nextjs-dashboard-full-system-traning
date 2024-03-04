@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import AdminNav from '../components/AdminNav'
 import Footer from '../components/Footer'
 import Container from '../components/Container'
@@ -6,17 +8,49 @@ import SideNav from '../components/SideNav'
 import Content from '../components/Content'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
+import DeleteBtn from './DeleteBtn'
 
-function page() {
+function AdminPostManagePage() {
+
+    const { data: session } = useSession();
+    if (!session) redirect('/login');
+    if (!session?.user?.role === "admin") redirect("/welcome");
+
+    const [allPostsData, setAllPostsData] = useState([]);
+
+    const getAllUsersData = async () => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/totalposts`, {
+                cache: "no-store"
+            })
+
+            if (!res.ok) {
+                throw new Error("Failed to fetch user");
+            }
+
+            const data = await res.json();
+            setAllPostsData(data.totalPosts);
+
+        } catch(error) {
+            console.log("Error loading posts: ", error);
+        }
+    }
+
+    useEffect(() => {
+        getAllUsersData();
+    }, [])
+
   return (
     <Container>
-        <AdminNav />
+        <AdminNav session={session} />
             <div className='flex-grow'>
                 <div className="container mx-auto">
                     <div className="flex mt-10">
                         <SideNav />
                         <div className='p-10'>
-                            <h3 className='text-3xl mb-3'>Manage Users</h3>
+                            <h3 className='text-3xl mb-3'>Manage Posts</h3>
                             <p>
                                 A list of posts retrieved from a MongoDB database.
                             </p>
@@ -33,24 +67,29 @@ function page() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td className='p-5'>5asd4f5asd6f564as6d4f</td>
-                                            <td className='p-5'>This is post title</td>
-                                            <td className='p-5'>
-                                                <Image 
-                                                    className='my-3 rounded-md'
-                                                    src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nfGVufDB8fDB8fHww"
-                                                    width={80}
-                                                    height={0}
-                                                    alt='My Image'
-                                                />
-                                            </td>
-                                            <td className='p-5'>This is post content</td>
-                                            <td className='p-5'>
-                                                <Link className="bg-gray-500 text-white border py-2 px-3 rounded text-lg my-2" href="/admin/posts/edit">Edit</Link>
-                                                <Link className="bg-red-500 text-white border py-2 px-3 rounded text-lg my-2" href="/admin/posts/delete">Edit</Link>
-                                            </td>
-                                        </tr>
+                                        {allPostsData?.map(val => (
+                                            <tr key={val._id}>
+                                                <td className='p-5'>{val._id}</td>
+                                                <td className='p-5'>{val.title}</td>
+                                                <td className='p-5'>
+                                                    <Image 
+                                                        className='my-3 rounded-md'
+                                                        src={val.img}
+                                                        width={80}
+                                                        height={0}
+                                                        alt={val.title}
+                                                    />
+                                                </td>
+                                                <td className='p-5'>{val.content}</td>
+                                                <td className='p-5'>
+                                                    <Link className="bg-gray-500 text-white border py-2 px-3 rounded text-lg my-2" href={`/admin/posts/edit/${val._id}`}>
+                                                        Edit
+                                                    </Link>
+                                                    <DeleteBtn id={val._id} />
+                                                    {/* <Link className="bg-red-500 text-white border py-2 px-3 rounded text-lg my-2" href="/admin/posts/delete">Edit</Link> */}
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
@@ -63,4 +102,4 @@ function page() {
   )
 }
 
-export default page
+export default AdminPostManagePage

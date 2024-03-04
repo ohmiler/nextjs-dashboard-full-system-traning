@@ -39,7 +39,7 @@ function RegisterPage() {
         try {
 
             // Making api request to check if user exists
-            const resUserExists = await fetch("http://localhost:3000/api/userExists", {
+            const resUserExists = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/userExists`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

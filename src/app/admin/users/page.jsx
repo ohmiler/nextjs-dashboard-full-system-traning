@@ -9,6 +9,7 @@ import Content from '../components/Content'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
+import DeleteBtn from './DeleteBtn'
 
 function AdminUserManagePage() {
 
@@ -21,7 +22,7 @@ function AdminUserManagePage() {
     const getAllUsersData = async () => {
         try {
 
-            const res = await fetch(`http://localhost:3000/api/totalusers`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/totalusers`, {
                 cache: "no-store"
             });
 
@@ -43,7 +44,7 @@ function AdminUserManagePage() {
 
   return (
     <Container>
-        <AdminNav />
+        <AdminNav session={session} />
             <div className='flex-grow'>
                 <div className="container mx-auto">
                     <div className="flex mt-10">
@@ -76,9 +77,10 @@ function AdminUserManagePage() {
                                                     <Link className="bg-gray-500 text-white border py-2 px-3 rounded text-lg my-2" href={`/admin/users/edit/${val._id}`}>
                                                         Edit
                                                     </Link>
-                                                    <Link className="bg-red-500 text-white border py-2 px-3 rounded text-lg my-2" href={`/admin/users/delete/${val._id}`}>
+                                                    <DeleteBtn id={val._id} />
+                                                    {/* <Link className="bg-red-500 text-white border py-2 px-3 rounded text-lg my-2" href={`/admin/users/delete/${val._id}`}>
                                                         Delete
-                                                    </Link>
+                                                    </Link> */}
                                                 </td>
                                             </tr>
                                         ))}
