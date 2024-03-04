@@ -54,7 +54,7 @@ function EditPostPage({ params }) {
 
     try {
 
-      const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
